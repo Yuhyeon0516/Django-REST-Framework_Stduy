@@ -1,2 +1,6 @@
 .DS_Store
 venv
+
+/restfullapiserver/restfullapiserver/__pycache__
+/restfullapiserver/.vscode
+/restfullapiserver/db.sqlite3
