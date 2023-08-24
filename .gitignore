@@ -3,5 +3,5 @@
 venv
 
 /restfullapiserver/restfullapiserver/__pycache__
-
+/restfullapiserver/addresses/__pycache__
 /restfullapiserver/db.sqlite3

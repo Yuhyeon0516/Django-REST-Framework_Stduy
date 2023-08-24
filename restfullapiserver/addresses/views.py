@@ -7,6 +7,7 @@ from .serializers import AddressesSerializer
 
 # Create your views here.
 
+@csrf_exempt
 def address_list(request):
     if request.method == 'GET':
         query_set = Addresses.objects.all()
