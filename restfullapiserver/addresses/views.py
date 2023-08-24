@@ -27,21 +27,21 @@ def address_list(request):
 @csrf_exempt
 def address(request, pk):
 
-    data = Addresses.objects.get(pk=pk)
+    select_data = Addresses.objects.get(pk=pk)
 
     if request.method == 'GET':
-        serializer = AddressesSerializer(data)
+        serializer = AddressesSerializer(select_data)
         return JsonResponse(serializer.data, safe=False)
     
-    # elif request.method == 'PUT':
-    #     data = JSONParser().parse(request)
-    #     serializer = AddressesSerializer(data=data)
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = AddressesSerializer(select_data, data=data)
 
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return JsonResponse(serializer.data, status=201)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
         
-    #     return JsonResponse(serializer.errors, status=400)
+        return JsonResponse(serializer.errors, status=400)
     
     # elif request.method == "DELETE":
     #     return
