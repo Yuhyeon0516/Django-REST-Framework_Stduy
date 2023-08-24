@@ -43,5 +43,6 @@ def address(request, pk):
         
         return JsonResponse(serializer.errors, status=400)
     
-    # elif request.method == "DELETE":
-    #     return
+    elif request.method == "DELETE":
+        select_data.delete()
+        return HttpResponse(status=204)
