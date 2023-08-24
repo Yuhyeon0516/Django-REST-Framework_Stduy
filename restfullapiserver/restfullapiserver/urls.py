@@ -23,6 +23,7 @@ from addresses import views
 urlpatterns = [
     path('addresses/', views.address_list),
     path('addresses/<int:pk>', views.address),
+    path('login/', views.login),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
