@@ -1,3 +1,4 @@
+from os import name
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -46,3 +47,18 @@ def address(request, pk):
     elif request.method == "DELETE":
         select_data.delete()
         return HttpResponse(status=204)
+
+@csrf_exempt
+def login(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        search_name = data["name"]
+        try:
+            search_data = Addresses.objects.get(name=search_name)
+        except:
+            return HttpResponse(status=400)
+
+        if data['phone_number'] == search_data.phone_number:
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=400)
