@@ -2,9 +2,11 @@ from os import name
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate
 from rest_framework.parsers import JSONParser
 from .models import Addresses
 from .serializers import AddressesSerializer
+
 
 # Create your views here.
 
@@ -50,15 +52,15 @@ def address(request, pk):
 
 @csrf_exempt
 def login(request):
-    if request.method == 'POST':
-        data = JSONParser().parse(request)
-        search_name = data["name"]
-        try:
-            search_data = Addresses.objects.get(name=search_name)
-        except:
-            return HttpResponse(status=400)
+    if request.method == "POST":
+        id = request.POST.get('userid', '')
+        pw = request.POST.get('userpw', '')
 
-        if data['phone_number'] == search_data.phone_number:
+        result = authenticate(username=id, password=pw)
+
+        if result:
             return HttpResponse(status=200)
         else:
-            return HttpResponse(status=400)
+            return HttpResponse(status=401)
+
+    return render(request, 'addresses/login.html')
